@@ -5,14 +5,28 @@ const makeResponse = (code, msg) => {
     return {
         statusCode: code,
         body: JSON.stringify({
-            message: msg
-        })
-    }
-}
+            message: msg,
+        }),
+    };
+};
 
+const isNDaysFrom = (start, n) => {
+    let today = (Date.now() / 1000) | 0;
+    let initial = (new Date(start).getTime() / 1000) | 0;
+    return (((today - initial) / 86400) | 0) % n == 0;
+};
 
-module.exports.nocorona = async event => {
+module.exports.nocorona = async (event) => {
     console.debug(`incoming: ${JSON.stringify(event)}`);
+
+    if (
+        !isNDaysFrom(
+            process.env['ONCOMING_START_DATE'],
+            process.env['DUTY_ROTATION']
+        )
+    ) {
+        return;
+    }
 
     const triggedFromReply = event['rawPath'] !== undefined;
 
@@ -27,7 +41,7 @@ module.exports.nocorona = async event => {
 
     // If a reply happens only send to me
     const numbers = numbersStr.split(',', triggedFromReply ? 1 : -1);
-    const toSend = numbers.map(number => {
+    const toSend = numbers.map((number) => {
         let payload = {
             phone: number,
             key: process.env['TEXTBELT_API_KEY'],
@@ -35,7 +49,7 @@ module.exports.nocorona = async event => {
             message: triggedFromReply
                 ? `TMC said: ${JSON.parse(event.body).text}`
                 : 'TMC, this is Launi. No corona.',
-        }
+        };
 
         console.debug(`Texting: ${JSON.stringify(payload)}`);
         return axios.post('https://textbelt.com/text', payload);
@@ -47,6 +61,6 @@ module.exports.nocorona = async event => {
     } catch (error) {
         return makeResponse(500, error);
     }
-    
+
     return makeResponse(200, 'Get some sleep. You deserve it');
 };
