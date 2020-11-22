@@ -7,7 +7,10 @@
     "watch": "tsc -w",
     "prestart": "npm run build",
     "start": "func start",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "test-ci": "node_modules/.bin/jest --ci --coverage --coverageReporters=cobertura",
+    "coverage": "jest --coverage",
+    "coverage-ci": "node_modules/.bin/jest --ci --coverage --coverageReporters=cobertura"
   },
   "dependencies": {
     "@types/luxon": "^1.25.0",

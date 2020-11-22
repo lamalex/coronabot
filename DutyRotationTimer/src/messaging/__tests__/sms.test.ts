@@ -1,5 +1,12 @@
 import 'dotenv/config'
-import { Textbelt } from '../sms'
+import { Textbelt, providerFactory } from '../sms'
+
+describe('providerFactory', () => {
+    it('gives a provider with non-zero api key', () => {
+        const sut = providerFactory()
+        expect(sut).toBeDefined()
+    })
+})
 
 describe('Texbelt', () => {
     it('sends a text', async () => {

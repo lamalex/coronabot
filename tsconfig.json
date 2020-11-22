@@ -9,5 +9,6 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true
-  }
+  },
+  "exclude": ["node_modules", "**/__tests__/*", "**/*.test.ts"]
 }
