@@ -1,0 +1,16 @@
+{
+  "bindings": [
+    {
+      "name": "dutytimer",
+      "type": "timerTrigger",
+      "direction": "in",
+      "schedule": "* 9 * * * 0-5"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+  ],
+  "scriptFile": "../dist/duty-rotation-timer/index.js"
+}
