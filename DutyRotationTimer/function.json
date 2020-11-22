@@ -1,10 +1,10 @@
 {
   "bindings": [
     {
-      "name": "myTimer",
+      "name": "DutyRotationTimer",
       "type": "timerTrigger",
       "direction": "in",
-      "schedule": "0 * * * * *"
+      "schedule": "0 0 10 * * 0-5"
     }
   ],
   "scriptFile": "../dist/DutyRotationTimer/index.js"
