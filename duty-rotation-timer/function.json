@@ -4,7 +4,7 @@
       "name": "dutytimer",
       "type": "timerTrigger",
       "direction": "in",
-      "schedule": "* 9 * * * 0-5"
+      "schedule": "0 0 11 * * 0-5"
     },
     {
       "type": "http",
